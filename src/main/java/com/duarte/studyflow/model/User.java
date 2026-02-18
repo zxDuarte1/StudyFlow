@@ -1,7 +1,6 @@
 package com.duarte.studyflow.model;
+
 import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +13,14 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 
-public class model {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false, unique = true)
     private String email;
-    private String senha;
+    @Column(nullable = false)
+    private String password;
 }
