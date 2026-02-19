@@ -1,9 +1,7 @@
 package com.duarte.studyflow.controller;
 
 import com.duarte.studyflow.model.User;
-import com.duarte.studyflow.repository.UserRepository;
 import com.duarte.studyflow.service.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,4 +34,5 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 }
