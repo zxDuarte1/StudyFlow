@@ -5,6 +5,7 @@ import com.duarte.studyflow.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,29 +24,23 @@ public class UserService {
         }
     //Criar Usuario
     public User createUser(User user) {
+
         if(userRepository.findByEmail(user.getEmail()).isPresent()){
             throw new IllegalStateException("Email já cadastrado");
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        String code = String.valueOf(
-                (int) (Math.random() * 90000)
-        );
-
+        String code = String.valueOf((int) (Math.random() * 900000) + 100000);
         user.setVerificationCode(code);
+
+        user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(15));
         user.setVerified(false);
 
-        User savedUser = userRepository.save(user);
-
-        emailService.sendVerificationEmail(
-                user.getEmail(),
-                code
-        );
-
-        return savedUser;
+        emailService.sendVerificationEmail(user.getEmail(), code);
+        return userRepository.save(user);
     }
 
-    //Procurar Email
+
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }

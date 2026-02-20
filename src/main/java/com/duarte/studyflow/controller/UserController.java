@@ -24,15 +24,4 @@ public class UserController {
         }
         return ResponseEntity.ok(users);
     }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        try {
-            User savedUser = userService.createUser(user);
-            return ResponseEntity.ok().body(savedUser);
-        }catch(RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
 }

@@ -12,43 +12,49 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
-    public User login(String email, String password) {
+
+    public String login(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
         if (!user.getVerified()) {
             throw new RuntimeException("Email ainda não verificado");
         }
+
         if (!passwordEncoder.matches(password, user.getPassword())){
             throw new RuntimeException("Senha Inválida");
         }
-
-        return user;
+        return jwtService.generateToken(user);
     }
+
     private String generateCode() {
         return String.valueOf((int)(Math.random() * 900000) + 100000);
     }
 
-    public User verifyEmail(String email,String code){
+    public void verifyEmail(String email, String code) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        if(user.getVerificationCode() == null){
-            throw new RuntimeException("Nenhum Código ativo");
-        }
-        if(user.getVerificationCodeExpiresAt().isBefore(LocalDateTime.now())){
-            throw new RuntimeException("Código expirado");
-        }
-        if(!user.getVerificationCode().equals(code)){
-            throw new RuntimeException("Código inválido");
-        }
-        user.setVerified(true);
-        user.setVerificationCode(null);
 
-        return userRepository.save(user);
+        if (user.getVerificationCode() == null || user.getVerificationCodeExpiresAt() == null) {
+            throw new RuntimeException("Código de verificação não gerado corretamente");
+        }
+
+        if (user.getVerificationCode().equals(code) &&
+                user.getVerificationCodeExpiresAt().isAfter(LocalDateTime.now())) {
+
+            user.setVerified(true);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("Código inválido ou expirado");
+        }
     }
     public void resendVerificationCode(String email){
         User user =  userRepository.findByEmail(email)
