@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StudyFlow - Registro</title>
-  <link rel="stylesheet" href="/css/auth.css">
-  <link rel="icon" type="image/png" sizes="64x64" href="/assets/logo.png">
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/logo.png">
 </head>
 <body>
-  <img src="/assets/logo.png" alt="StudyFlow Logo" class="top-logo">
+  <img src="../assets/logo.png" alt="StudyFlow Logo" class="top-logo">
   <div class="login-container">
     <h1 class="logo">Registro</h1>
     
     <form class="login-box">
-      <input type="text" placeholder="Nome de usuário" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Senha" required>
+      <input type="text" name="username" placeholder="Nome de usuário" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Senha" required>
       <input type="password" placeholder="Confirmar senha" required>
 
       <p class="register-text">
@@ -26,6 +26,6 @@
       <button type="submit">Registrar</button>
     </form>
   </div>
-
+<script src="../js/register.js" defer></script>
 </body>
 </html>
