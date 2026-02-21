@@ -1,14 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+/* ===== RESET E GERAL ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== LOGO (GIRO VERTICAL) ===== */
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #0a1a2f, #000000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', cursive;
+  color: #eaeaea;
+  overflow: hidden;
+}
+
+/* ===== LOGOS E ANIMAÇÕES ===== */
+.top-logo {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 140px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 10;
+}
+
+.top-logo:hover {
+  transform: scale(1.1);
+}
+
 .logo {
   display: inline-block;
+  color: #4ae901;
+  margin-bottom: 24px;
+  font-size: 1.4rem;
   animation: spinY 10s linear infinite;
   transform-style: preserve-3d;
 }
@@ -19,86 +48,26 @@
   100% { transform: rotateY(360deg); }
 }
 
-/* ===== BODY ===== */
-body {
-  height: 100vh;
-  background: linear-gradient(135deg, #0a1a2f, #000000);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Press Start 2P', cursive;
-  color: #eaeaea;
-}
-
-/* ===== CONTAINER ===== */
+/* ===== CONTAINER PRINCIPAL ===== */
 .login-container {
   text-align: center;
-  perspective: 800px;
+  perspective: 1000px;
 }
 
-/* ===== TÍTULO ===== */
-.login-container h1 {
-  color: #4ae901;
-  margin-bottom: 24px;
-  font-size: 1.4rem;
-}
-
-/* ===== CAIXA LOGIN ===== */
 .login-box {
   background: rgba(255, 255, 255, 0.05);
-  padding: 24px;
+  padding: 30px;
   border-radius: 12px;
-  width: 300px;
+  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(74, 233, 1, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.login-box input {
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
-  background: #0f172a;
-  color: #eaeaea;
-  font-family: inherit;
-  font-size: 0.6rem;
-}
-
-.login-box input::placeholder {
-  color: #94a3b8;
-}
-
-.register-text {
-  font-size: 0.55rem;
-  color: #94a3b8;
-  text-align: center;
-}
-
-.register-text a {
-  color: #4ae901;
-  text-decoration: none;
-}
-
-.register-text a:hover {
-  text-decoration: underline;
-}
-.login-box button {
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  background: #4ae901;
-  color: #000;
-  font-family: inherit;
-  width: 60%;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  margin: 0 auto;
-  display: block;
-}
+/* ===== INPUTS ===== */
 .login-box input {
   padding: 12px;
   border-radius: 6px;
@@ -108,36 +77,94 @@ body {
   color: #eaeaea;
   font-family: inherit;
   font-size: 0.6rem;
-  transition: 
-    border 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+  transition: all 0.2s ease;
 }
-.login-box input:hover {
+
+.login-box input:hover, .login-box input:focus {
   border: 2px solid #4ae901;
-  box-shadow: 0 0 10px rgba(74, 233, 1, 0.35);
+  box-shadow: 0 0 15px rgba(74, 233, 1, 0.4);
   transform: translateY(-2px);
 }
 
-.login-box input:focus {
-  border: 2px solid #4ae901;
-  box-shadow: 0 0 15px rgba(74, 233, 1, 0.6);
-  transform: translateY(-2px);
+/* Estilo específico para o campo de código (Verify) */
+.input-code {
+  text-align: center;
+  font-size: 1.1rem !important;
+  letter-spacing: 6px;
+  color: #4ae901 !important;
+  margin: 10px 0;
 }
-.login-box input::placeholder {
-  color: #94a3b8;
-}
-.top-logo {
-  position: fixed;
-  top: 16px;
-  left: 16px;
 
-  width: 140px;
+/* ===== BOTÕES ===== */
+button {
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  background: #4ae901;
+  color: #000;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: bold;
   cursor: pointer;
-
-  transition: transform 0.3s ease;
+  transition: all 0.2s ease;
+  width: 100%;
 }
 
-.top-logo:hover {
-  transform: scale(1.1);
+button:hover {
+  background: #36ad01;
+  box-shadow: 0 0 20px rgba(74, 233, 1, 0.5);
+  transform: scale(1.02);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Botão Secundário (Reenviar) */
+.btn-secondary {
+  background: transparent !important;
+  border: 1px solid #4ae901 !important;
+  color: #4ae901 !important;
+  font-size: 0.5rem !important;
+  padding: 8px !important;
+  margin-top: 4px;
+}
+
+.btn-secondary:hover {
+  background: rgba(74, 233, 1, 0.1) !important;
+}
+
+/* ===== TEXTOS E LINKS ===== */
+.text-info {
+  font-size: 0.45rem;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+
+.register-text {
+  font-size: 0.55rem;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+.register-text a {
+  color: #4ae901;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 480px) {
+  .login-box {
+    width: 90vw;
+  }
+  .top-logo {
+    width: 100px;
+  }
 }

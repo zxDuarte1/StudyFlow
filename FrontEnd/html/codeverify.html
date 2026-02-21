@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow - Verificação</title>
+  <link rel="stylesheet" href="/css/auth.css">
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/logo.png">
+</head>
+<body>
+  <img src="/assets/logo.png" alt="StudyFlow Logo" class="top-logo">
+  
+  <div class="login-container">
+    <h1 class="logo">VERIFICAÇÃO</h1>
+
+    <form class="login-box" id="verifyForm">
+      <p class="text-info">Código enviado para seu e-mail!</p>
+      
+      <input type="text" 
+             id="verificationCode"
+             maxlength="6" 
+             placeholder="000000" 
+             required 
+             class="input-code">
+
+      <button type="submit" id="confirmBtn">CONFIRMAR</button>
+      
+      <button type="button" id="resendBtn" class="btn-secondary">Reenviar Código</button>
+      
+      <p class="register-text"><a href="login.html">Voltar para o Login</a></p>
+    </form>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>
