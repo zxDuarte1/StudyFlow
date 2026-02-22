@@ -1,15 +1,31 @@
 console.log("Arquivo register.js carregado com sucesso!");
 const API_URL = "http://localhost:8080/api/auth";
-
-
 const notify = (msg) => console.log(msg);
 
-const registerForm = document.getElementById('registerForm');
+function isPasswordStrong(password) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return regex.test(password);
+}
+
 if (registerForm) {
+
+
   registerForm.addEventListener('submit', async (e) =>{
     e.preventDefault();
+    const password = e.target.password.value;
+    const confirmPassword = e.target.querySelector('input[placeholder="Confirmar senha"]').value;
+
+    if (!isPasswordStrong(password)) {
+        alert("A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas e números.");
+        return;
+    }
+    if (password !== confirmPassword) {
+        alert("As senhas não coincidem!");
+        return;
+    }
+
     const userData = {
-      username: e.target.username.value,
+      name: e.target.name.value,
       email: e.target.email.value,
       password: e.target.password.value
     };
