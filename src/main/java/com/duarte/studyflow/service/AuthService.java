@@ -32,6 +32,11 @@ public class AuthService {
         }
 
         if (!user.getVerified()) {
+            String newCode = generateCode();
+            user.setVerificationCode(newCode);
+            user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(10));
+            userRepository.save(user);
+            emailService.sendVerificationEmail(user.getEmail(), newCode);
             throw new RuntimeException("USER_NOT_VERIFIED");
         }
 

@@ -168,3 +168,55 @@ button:active {
     width: 100px;
   }
 }
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: linear-gradient(135deg, #0a1a2f, #2b2727);
+    color: #4ae901;
+    padding: 16px 24px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    min-width: 250px;
+    animation: slideIn 0.3s ease-out;
+    border-left: 6px solid #ccc;
+}
+
+.toast {
+    background-color: #333;
+    border-left: 6px solid #ccc;
+}
+
+.toast.success {
+    border-left-color: #4caf50; 
+}
+
+
+.toast.error {
+    border-left-color: #ff4b4b;
+}
+
+.toast.info {
+    border-left-color: #ffcc00; 
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+
+.toast.hide {
+    animation: slideOut 0.3s forwards;
+}
+
+@keyframes slideOut {
+    to { transform: translateX(100%); opacity: 0; }
+}

@@ -22,7 +22,7 @@ public class UserService {
             this.passwordEncoder = passwordEncoder;
             this.emailService = emailService;
         }
-    //Criar Usuario
+
     public User createUser(User user) {
 
         if(userRepository.findByEmail(user.getEmail()).isPresent()){
@@ -33,7 +33,7 @@ public class UserService {
         String code = String.valueOf((int) (Math.random() * 900000) + 100000);
         user.setVerificationCode(code);
 
-        user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(15));
+        user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(10));
         user.setVerified(false);
 
         emailService.sendVerificationEmail(user.getEmail(), code);
