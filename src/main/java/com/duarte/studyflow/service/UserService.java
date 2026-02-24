@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    //injeção de depêndencia via construtor
+
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -25,19 +25,29 @@ public class UserService {
 
     public User createUser(User user) {
 
+        validatePasswordStrength(user.getPassword());
+
         if(userRepository.findByEmail(user.getEmail()).isPresent()){
             throw new IllegalStateException("Email já cadastrado");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         String code = String.valueOf((int) (Math.random() * 900000) + 100000);
-        user.setVerificationCode(code);
+        user.setVerificationCode(passwordEncoder.encode(code));
 
         user.setVerificationCodeExpiresAt(LocalDateTime.now().plusMinutes(10));
         user.setVerified(false);
 
         emailService.sendVerificationEmail(user.getEmail(), code);
         return userRepository.save(user);
+    }
+    private void validatePasswordStrength(String password) {
+        String regex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+        if (!password.matches(regex)) {
+            throw new RuntimeException("A senha deve ter pelo menos 8 caracteres, " +
+                    "incluindo uma letra maiúscula, um número e um caractere especial.");
+        }
     }
 
 

@@ -1,11 +1,15 @@
 package com.duarte.studyflow.controller;
 
+import com.duarte.studyflow.dto.ResetPasswordDTO;
 import com.duarte.studyflow.dto.VerifyRequest;
 import com.duarte.studyflow.model.User;
 import com.duarte.studyflow.service.AuthService;
 import com.duarte.studyflow.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
@@ -50,9 +54,37 @@ public class AuthController {
         }
     }
 
+
+    @PostMapping("/forgot-password-request")
+    public ResponseEntity<?> requestReset(@RequestBody Map<String, String> payload) {
+        try {
+            String email = payload.get("email");
+            authService.processPasswordResetRequest(email);
+            return ResponseEntity.ok("Se o e-mail existir, o código foi enviado.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
     @PostMapping("/resend-code")
-    public ResponseEntity<?> resendCode(@RequestParam String email) {
-        authService.resendVerificationCode(email);
-        return ResponseEntity.ok("Novo código enviado");
+    public ResponseEntity<?> resendCode(@RequestBody Map<String, String> payload) {
+        try {
+            String email = payload.get("email");
+            authService.resendVerificationCode(email);
+            return ResponseEntity.ok("Novo código enviado");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordDTO data) {
+        try {
+            authService.resetPassword(data.getEmail(), data.getNewPassword());
+            return ResponseEntity.ok("Senha alterada com sucesso!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

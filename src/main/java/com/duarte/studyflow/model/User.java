@@ -18,45 +18,49 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Table(name = "users")
-
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+
     private String name;
-    @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false)
     private String password;
 
+    @Column(name = "failed_attempts")
+    private Integer failedAttempts = 0;
+
+    @Column(name = "enabled")
+    private Boolean enabled = true;
+
+    @Column(name = "lock_time")
+    private LocalDateTime lockTime;
+
     private Boolean verified = false;
-
     private String verificationCode;
-
     private LocalDateTime verificationCodeExpiresAt;
 
+    // Métodos do UserDetails
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(); // Sem roles por enquanto
-    }
+    public Collection<? extends GrantedAuthority> getAuthorities() { return List.of(); }
 
     @Override
-    public String getUsername() {
-        return this.email; // O email é o identificador único
-    }
+    public String getUsername() { return this.email; }
 
     @Override
     public boolean isAccountNonExpired() { return true; }
 
     @Override
-    public boolean isAccountNonLocked() { return true; }
+    public boolean isAccountNonLocked() {
+        // Lógica real de bloqueio
+        return lockTime == null || lockTime.isBefore(LocalDateTime.now());
+    }
 
     @Override
     public boolean isCredentialsNonExpired() { return true; }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 }

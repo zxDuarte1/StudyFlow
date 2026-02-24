@@ -25,23 +25,26 @@ if (loginForm) {
 
             if (response.ok) {
                 localStorage.setItem('token', resultText);
-                showToast("Bem-Vindo ao Studyflow!","success");
-                window.location.href = "dashboard.html";
-            } 
+                showToast("Bem-Vindo ao Studyflow!", "success");
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 3000);
+
+            }
             else if (resultText.includes("Email ainda não verificado") || resultText.includes("USER_NOT_VERIFIED")) {
                 localStorage.removeItem('codeExpiration');
-                showToast("Sua conta ainda não foi verificada. Redirecionando...","info");
+                showToast("Sua conta ainda não foi verificada. Redirecionando...", "info");
                 localStorage.setItem('emailToVerify', credentials.email);
                 setTimeout(() => {
                     window.location.href = "verify.html";
                 }, 3000);
 
-            } 
-            else { 
+            }
+            else {
                 showToast("Erro: " + resultText);
             }
         } catch (err) {
-            showToast("Erro de conexão com o servidor.","error");
+            showToast("Erro de conexão com o servidor.", "error");
         }
     });
 }

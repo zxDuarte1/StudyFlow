@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow - Recuperação</title>
+  <link rel="stylesheet" href="../css/auth.css">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/logo.png">
+</head>
+<body>
+  <img src="../assets/logo.png" alt="StudyFlow Logo" class="top-logo" onclick="window.location.href='login.html'">
+  
+  <div class="login-container">
+    <h1 class="logo">Recuperar</h1>
+
+    <form class="login-box" id="requestResetForm">
+      
+      <input type="email" name="email" placeholder="Seu e-mail cadastrado" required>
+
+      <button type="submit" id="requestBtn">Enviar Código</button>
+
+      <p class="register-text">
+        Lembrou a senha? <a href="login.html">Login</a>
+      </p>
+    </form>
+  </div>
+
+  <script src="../js/requestReset.js" defer></script>
+  <script src="../js/notifications.js"></script>
+</body>
+</html>

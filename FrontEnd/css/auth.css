@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
 /* ===== RESET E GERAL ===== */
 * {
   margin: 0;
@@ -220,3 +225,4 @@ button:active {
 @keyframes slideOut {
     to { transform: translateX(100%); opacity: 0; }
 }
+

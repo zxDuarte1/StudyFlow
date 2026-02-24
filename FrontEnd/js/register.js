@@ -1,9 +1,9 @@
 console.log("Arquivo register.js carregado com sucesso!");
 const API_URL = "http://localhost:8080/api/auth";
 const notify = (msg) => console.log(msg);
-
+ 
 function isPasswordStrong(password) {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
 }
 
@@ -14,7 +14,7 @@ if (registerForm) {
     const confirmPassword = e.target.querySelector('input[placeholder="Confirmar senha"]').value;
 
     if (!isPasswordStrong(password)) {
-        showToast("A senha deve ter pelo menos 8 caracteres,incluindo \nletras maiúsculas, minúsculas e números.","info");
+        showToast("Senha muito fraca! Precisa de maiúscula, número e símbolo.","info");
         return;
     }
     if (password !== confirmPassword) {
