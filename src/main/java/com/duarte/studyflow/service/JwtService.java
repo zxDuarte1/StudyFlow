@@ -1,7 +1,9 @@
 package com.duarte.studyflow.service;
 
+import com.duarte.studyflow.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,16 +18,18 @@ public class JwtService {
 
     private static final String SECRET_KEY = "6f9b8c7d5e4a3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a3f2e1d0c9b8a";
 
-    public String generateToken(com.duarte.studyflow.model.User user){
+    public String generateToken(User user) {
+        long expirationTime = 1000 * 60 * 60 * 2;
+
         return Jwts.builder()
-                .subject(user.getEmail())
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10 ))
-                .signWith(getSigningKey())
+                .setSubject(user.getEmail())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    private SecretKey getSigningKey(){
+    private SecretKey getSignInKey(){
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -36,7 +40,7 @@ public class JwtService {
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = Jwts.parser()
-                .verifyWith(getSigningKey())
+                .verifyWith(getSignInKey())
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow - Tarefas</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/task.css">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/logo.png">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/loading.css">
+  
+</head>
+<body>
+  <div id="loading-screen">
+    <div class="loader"></div>
+</div>
+  
+<nav class="studyflow-nav">
+
+  <div class="nav-container">
+
+
+
+    <a href="#" class="nav-logo">
+        <img src="../assets/logo.png" alt="logo" class="logo-img">
+        <span>Study<span class="neon-text">Flow</span></span>
+    </a>
+
+
+    <!-- MENU -->
+    <ul class="nav-menu">
+      
+      <li><a href="dashboard.html" class="nav-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+      <li><a href="task.html" class="nav-link active"><i class="fas fa-check-double"></i> Tarefas</a></li>
+      <li><a href="agenda.html" class="nav-link"><i class="fas fa-calendar-day"></i> Agenda</a></li>
+      <li><a href="stats.html" class="nav-link"><i class="fas fa-fire"></i> Estatísticas</a></li>
+    </ul>
+
+    <!-- USUÁRIO -->
+    <div class="nav-user-section">
+
+      <div class="user-trigger" onclick="toggleDropdown()">
+        <div class="user-text">
+          <span id="userNameDisplay" class="user-name">Estudante</span>
+          <small class="status-online">
+            <i class="fas fa-circle"></i> Online
+          </small>
+        </div>
+
+        <img src="https://ui-avatars.com/api/?name=User&background=8b5cf6&color=fff"
+          id="userImg"
+          class="neon-avatar">
+      </div>
+
+      <!-- DROPDOWN -->
+      <div class="nav-dropdown glass-effect" id="profileDropdown">
+        <div class="dropdown-header">Painel do Usuário</div>
+
+        <a href="profile.html" class="dropdown-item">
+          <i class="fas fa-user-edit"></i> Meu Perfil
+        </a>
+
+        <a href="settings.html" class="dropdown-item">
+          <i class="fas fa-cog"></i> Configurações
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a href="#" onclick="logout()" class="dropdown-item logout-highlight">
+          <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</nav>
+
+<section class="dashboard-container">
+
+  <h1 class="dashboard-title">
+    <i class="fas fa-check-double"></i> Minhas Tarefas
+  </h1>
+
+  <div class="task-input-box">
+    <input type="text" id="taskInput" placeholder="Digite uma nova tarefa...">
+    <button id="addTaskBtn">
+      <i class="fas fa-plus"></i>
+    </button>
+  </div>
+
+  <div id="taskList" class="tasks-grid"></div>
+
+</section>
+
+<script src="../js/task.js"></script>
+<script src="../js/loading.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

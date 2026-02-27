@@ -13,14 +13,22 @@ input::-ms-clear {
 }
 
 body {
-  height: 100vh;
-  background: linear-gradient(135deg, #0a1a2f, #000000);
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(74, 233, 1, 0.08),
+      transparent 40%
+    ),
+    linear-gradient(135deg, #061220 0%, #000000 70%);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-family: 'Press Start 2P', cursive;
   color: #eaeaea;
-  overflow: hidden;
 }
 
 /* ===== LOGOS E ANIMAÇÕES ===== */

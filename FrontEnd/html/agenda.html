@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyFlow - Agenda</title>
+
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/agenda.css">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/loading.css">
+
+</head>
+
+<body>
+    <div id="loading-screen">
+        <div class="loader"></div>
+    </div>
+  <nav class="studyflow-nav">
+
+    <div class="nav-container">
+
+
+      <a href="#" class="nav-logo">
+        <img src="../assets/logo.png" alt="logo" class="logo-img">
+        <span>Study<span class="neon-text">Flow</span></span>
+      </a>
+
+
+      <ul class="nav-menu">
+        <li><a href="dashboard.html" class="nav-link"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+        <li><a href="task.html" class="nav-link "><i class="fas fa-check-double"></i> Tarefas</a></li>
+        <li><a href="agenda.html" class="nav-link active"><i class="fas fa-calendar-day"></i> Agenda</a></li>
+        <li><a href="stats.html" class="nav-link"><i class="fas fa-fire"></i> Estatísticas</a></li>
+      </ul>
+
+      <div class="nav-user-section">
+
+        <div class="user-trigger" onclick="toggleDropdown()">
+          <div class="user-text">
+            <span id="userNameDisplay" class="user-name">Estudante</span>
+            <small class="status-online">
+              <i class="fas fa-circle"></i> Online
+            </small>
+          </div>
+
+          <img src="https://ui-avatars.com/api/?name=User&background=8b5cf6&color=fff" id="userImg" class="neon-avatar">
+        </div>
+
+        <div class="nav-dropdown glass-effect" id="profileDropdown">
+          <div class="dropdown-header">Painel do Usuário</div>
+
+          <a href="profile.html" class="dropdown-item">
+            <i class="fas fa-user-edit"></i> Meu Perfil
+          </a>
+
+          <a href="settings.html" class="dropdown-item">
+            <i class="fas fa-cog"></i> Configurações
+          </a>
+
+          <div class="dropdown-divider"></div>
+
+          <a href="#" onclick="logout()" class="dropdown-item logout-highlight">
+            <i class="fas fa-sign-out-alt"></i> Sair do Sistema
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <script src="../js/task.js"></script>
+  <script src="../js/loading.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

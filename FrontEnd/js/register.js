@@ -43,9 +43,6 @@ try {
             setTimeout(() => window.location.href = "verify.html", 3000);
         } 
 
-        else if (resultText.includes("Duplicate entry") || resultText.includes("Este e-mail já está cadastrado")) {
-            showToast("Este e-mail já possui uma conta. Tente fazer login.", "error");
-        } 
         else {
             showToast("Erro ao registrar: " + resultText, "error");
         }

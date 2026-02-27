@@ -1,4 +1,5 @@
 if (!token) {
     localStorage.setItem('logout_reason', 'Sessão expirada ou não autorizado.');
-    localStorage.clear();
+    window.location.href = "login.html";
+
 }

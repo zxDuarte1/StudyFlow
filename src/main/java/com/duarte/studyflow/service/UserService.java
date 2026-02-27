@@ -2,6 +2,8 @@ package com.duarte.studyflow.service;
 
 import com.duarte.studyflow.model.User;
 import com.duarte.studyflow.repository.UserRepository;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,13 @@ public class UserService {
         }
 
     public User createUser(User user) {
+
+        if (user.getName() != null) {
+            user.setName(Jsoup.clean(user.getName(), Safelist.none()));
+        }
+        if (user.getEmail() != null) {
+            user.setEmail(user.getEmail().trim().toLowerCase());
+        }
 
         validatePasswordStrength(user.getPassword());
 

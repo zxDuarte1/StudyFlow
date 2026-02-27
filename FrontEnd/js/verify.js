@@ -21,19 +21,26 @@ if (verifyForm) {
             });
 
             if (response.ok) {
+                const isRecovery = localStorage.getItem('isRecoveryMode');
+
                 if (isRecovery === 'true') {
                     showToast("Código aceito! Defina sua nova senha.", "success");
+        
+                    localStorage.removeItem('isRecoveryMode'); 
+                    
                     setTimeout(() => {
                         window.location.href = "forgotPassword.html";
                     }, 2000);
                 } else {
-                    showToast("E-mail verificado com sucesso!", "success");
+
+                    showToast("E-mail verificado com sucesso! Agora você pode entrar.", "success");
                     localStorage.removeItem('emailToVerify');
+                    
                     setTimeout(() => {
                         window.location.href = "login.html";
                     }, 3000);
                 }
-            } else {
+            }else {
                 const errorMsg = await response.text();
                 showToast("Error: " + errorMsg);
 

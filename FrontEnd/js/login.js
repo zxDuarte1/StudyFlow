@@ -1,7 +1,14 @@
 const API_URL = "http://localhost:8080/api/auth";
-const notify = (msg) => console.log(msg);
 
 const loginForm = document.getElementById('loginForm');
+
+document.addEventListener('DOMContentLoaded', () => {
+    const reason = localStorage.getItem('logout_reason');
+    if (reason) {
+        showToast(reason, "error");
+        localStorage.removeItem('logout_reason'); 
+    }
+});
 
 if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
@@ -21,29 +28,36 @@ if (loginForm) {
                 body: JSON.stringify(credentials)
             });
 
-            const resultText = await response.text();
+            const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('token', resultText);
+
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userName', data.nome); 
+                localStorage.setItem('userEmail', data.email);
+
                 showToast("Bem-Vindo ao Studyflow!", "success");
+                
                 setTimeout(() => {
                     window.location.href = "dashboard.html";
-                }, 3000);
+                }, 2000);
 
-            }
-            else if (resultText.includes("Email ainda não verificado") || resultText.includes("USER_NOT_VERIFIED")) {
-                localStorage.removeItem('codeExpiration');
-                showToast("Sua conta ainda não foi verificada. Redirecionando...", "info");
+            } else if (data.message === "USER_NOT_VERIFIED" || response.status === 403) {
+                localStorage.setItem('isRecoveryMode', 'false');
                 localStorage.setItem('emailToVerify', credentials.email);
+                
+                showToast("Sua conta ainda não foi verificada. Redirecionando...", "info");
+                
                 setTimeout(() => {
                     window.location.href = "verify.html";
-                }, 3000);
+                }, 2000);
 
-            }
-            else {
-                showToast("Erro: " + resultText);
+            } else {
+
+                showToast("Erro: " + (data.message || "Credenciais inválidas"));
             }
         } catch (err) {
+            console.error("Erro no login:", err);
             showToast("Erro de conexão com o servidor.", "error");
         }
     });
